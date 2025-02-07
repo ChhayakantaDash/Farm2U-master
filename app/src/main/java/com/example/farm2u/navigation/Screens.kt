@@ -23,7 +23,7 @@ sealed class Screens(val route: String) {
     object History : Screens(route = "history")
     object Crop : Screens(route = "crop")
     object AddItems : Screens(route = "add items")
-    object Profile2 : Screens(route = "profile2")
+    object FarmerProfile : Screens(route = "farmer profile")
     object FarmerOrder : Screens(route = "farmer order")
     object FarmerNegotitate : Screens(route = "farmer order")
     object ChatScreen: Screens(route = "chat screen/{userName}")

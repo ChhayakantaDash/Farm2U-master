@@ -27,7 +27,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.farm2u.R
 import com.example.farm2u.navigation.Screens
 import com.example.farm2u.viewModel.ScaffoldViewModel
@@ -38,7 +37,7 @@ fun FarmerScaffold(navController: NavController, viewModel : ScaffoldViewModel) 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            FarmerTopbar(navController = rememberNavController())
+            FarmerTopbar(navController)
         },
         bottomBar = {
             FarmerBottomNavigation(navController)
@@ -117,7 +116,7 @@ fun FarmerTopbar(navController: NavController, viewModel: ScaffoldViewModel = vi
                     text = { Text("Profile") },
                     onClick = {
                         // Navigate to the Profile screen
-                        navController.navigate(Screens.Profile2.route)
+                        navController.navigate(Screens.FarmerProfile.route)
                         viewModel.expanded.value = false
                     }
                 )

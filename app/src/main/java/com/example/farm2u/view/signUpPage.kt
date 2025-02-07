@@ -162,13 +162,12 @@ fun Form(
             onClick = {
                 val email = viewModel.eemail.value
                 val password = viewModel.newpassword.value
-                val name = viewModel.name.value
 
                 if (password == viewModel.confirmpassword.value) {
                     auth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                navController.navigate("login")
+                                navController.popBackStack()
                             } else {
                                 errorMessage.value = task.exception?.message ?: "Sign Up Failed"
                                 showDialog.value = true

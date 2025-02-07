@@ -28,6 +28,7 @@ import com.example.farm2u.view.FarmerAdd
 import com.example.farm2u.view.FarmerDetailsScreen
 import com.example.farm2u.view.FarmerNegotiate
 import com.example.farm2u.view.FarmerOrders
+import com.example.farm2u.view.FarmerProfile
 import com.example.farm2u.view.FarmerScaffold
 import com.example.farm2u.view.Favourites
 import com.example.farm2u.view.ForgotPassword
@@ -110,7 +111,7 @@ fun Nav() {
         }
 
 
-        ///////////////////////* Buyer's Screen*/////////////////////////////
+        ///////////////////////* Farmer's Screen*/////////////////////////////
 
         navigation(startDestination = Screens.Scaffold.route, route = Screens.Sell.route) {
             composable(Screens.Scaffold.route) {
@@ -125,6 +126,9 @@ fun Nav() {
                 Favourites(navController =  navCtrl)
             }
 
+            composable(Screens.FarmerProfile.route) {
+                FarmerProfile(navController = navCtrl)
+            }
             composable(Screens.Chatbot.route) {
                 ChatPage(navController = navCtrl, viewModel = viewModel())
             }
@@ -200,12 +204,15 @@ fun Nav() {
 
         }
 
-        ///////////////////* Farmer's Screen */////////////////////////////////
+        ///////////////////* Buyer's Screen */////////////////////////////////
         navigation(startDestination = Screens.FarmerScaffold.route, route = Screens.Buy.route) {
 
             composable(Screens.FarmerScaffold.route) {
                 FarmerScaffold(navController = navCtrl, viewModel = viewModel())
             }
+
+
+
 
             composable(Screens.GridScreen.route) {
                 GridScreen(navController = navCtrl)
@@ -252,10 +259,7 @@ fun Nav() {
             }
 
             composable("farmerAdd") {
-                FarmerAdd(
-                    navController = navCtrl,
-
-                )
+                FarmerAdd(navController = navCtrl,)
             }
 
             composable(Screens.FarmerOrders.route) { FarmerOrders(navCtrl) } // Must exist
