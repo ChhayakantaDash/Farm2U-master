@@ -9,6 +9,7 @@ import androidx.annotation.RequiresApi
 import com.example.farm2u.navigation.Nav
 import com.example.farm2u.ui.theme.Farm2UTheme
 
+
 class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,6 +18,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             Farm2UTheme {
                 Nav()
+//                ProfileScreen(navController = rememberNavController())
+//                FarmerScaffold(navController = rememberNavController(), viewModel = viewModel())
             }
         }
     }

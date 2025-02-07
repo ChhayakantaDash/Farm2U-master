@@ -8,7 +8,6 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.farm2u.model.NavItem
@@ -29,6 +28,6 @@ class ScaffoldViewModel: ViewModel() {
         NavItem("Home", Icons.Default.Home),
         NavItem("Add", Icons.Default.AddCircle ),
         NavItem("Orders", Icons.AutoMirrored.Filled.List),
-        NavItem("Profile", Icons.Default.Person),
+        NavItem("Negotiate", Icons.Default.Email),
     )
 }
