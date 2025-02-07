@@ -127,7 +127,7 @@ fun ProductsCard(index: Int, viewModel: HomeViewModel, navController: NavControl
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
             Text(
-                text = item.farmers,
+                text = item.farmerName,
                 style = MaterialTheme.typography.bodySmall.copy(color = Color.Gray), // Subtle text color for secondary info
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
@@ -144,7 +144,7 @@ fun ProductsCard(index: Int, viewModel: HomeViewModel, navController: NavControl
                         style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold) // Bold label
                     )
                     Text(
-                        text = item.farmers,
+                        text = item.farmerName,
                         style = MaterialTheme.typography.bodySmall
                     )
                 }
@@ -162,6 +162,7 @@ fun ProductsCard(index: Int, viewModel: HomeViewModel, navController: NavControl
 }
 
 @Composable
+
 fun CategorySection(navController: NavController, viewModel: HomeViewModel = viewModel()) {
     LazyRow(
         modifier = Modifier.fillMaxWidth(),
@@ -176,7 +177,8 @@ fun CategorySection(navController: NavController, viewModel: HomeViewModel = vie
                     .width(80.dp)
                     .shadow(elevation = 5.dp, shape = RoundedCornerShape(10.dp))
                     .clickable {
-                        navController.navigate("product_detail/${categoryItem.name}")
+                        viewModel.selectedCategory.value = categoryItem.name // ✅ Set category
+                        navController.navigate("category_screen/${categoryItem.name}") // ✅ Navigate to new screen
                     },
                 shape = RoundedCornerShape(10.dp),
                 elevation = CardDefaults.cardElevation(),

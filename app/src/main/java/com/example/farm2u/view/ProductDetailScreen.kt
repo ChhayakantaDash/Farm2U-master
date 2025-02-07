@@ -20,6 +20,7 @@ import com.example.farm2u.viewModel.HomeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
+
 fun ProductDetailScreen(
     navController: NavController,
     productName: String,
@@ -29,12 +30,11 @@ fun ProductDetailScreen(
 
     product?.let {
         var selectedQuantity by remember { mutableStateOf(1) }
-        val pricePerKg = product.price
-        var totalPrice by remember { mutableStateOf(pricePerKg) }
+        val pricePerUnit = product.price
+        var totalPrice by remember { mutableStateOf(pricePerUnit) }
 
-        // Update total price whenever selectedQuantity changes
         LaunchedEffect(selectedQuantity) {
-            totalPrice = selectedQuantity * pricePerKg
+            totalPrice = selectedQuantity * pricePerUnit
         }
 
         Scaffold(
@@ -77,94 +77,68 @@ fun ProductDetailScreen(
                     fontWeight = FontWeight.Bold
                 )
 
-                // Price per KG
+                // Description (for combo packs)
                 Text(
-                    text = "Price: ${product.price} ₹ / KG",
+                    text = "Maximum Availabilty: ${product.quantity}",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = Color.Gray
+                )
+
+                // Price
+                Text(
+                    text = "Price: ₹${product.price} per kg",
                     style = MaterialTheme.typography.bodyLarge,
                     color = Color(0xFF4CAF50)
                 )
 
-                // Available Quantity
-                Text(
-                    text = "Available Quantity: ${product.quantity} ",
-                    style = MaterialTheme.typography.bodyMedium
-                )
-
-                // Quantity Selection Row
+                // Quantity Selection
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    // Decrease Quantity Button
                     Button(
                         onClick = {
-                            if (selectedQuantity > 1) {
-                                selectedQuantity -= 1
-                            }
+                            if (selectedQuantity > 1) selectedQuantity -= 1
                         },
-                        modifier = Modifier.padding(end = 16.dp),
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50))
                     ) {
-                        Text(
-                            text = "-",
-                            style = MaterialTheme.typography.headlineLarge.copy(
-                                fontWeight = FontWeight.Bold,
-                                color = Color.White
-                            )
-                        )
+                        Text("-")
                     }
 
-                    // Display Selected Quantity
                     Text(
-                        text = "$selectedQuantity KG",
+                        text = "$selectedQuantity Pack(s)",
                         style = MaterialTheme.typography.bodyLarge,
                         modifier = Modifier.padding(horizontal = 16.dp)
                     )
 
-                    // Increase Quantity Button
                     Button(
-                        onClick = {
-                            val availableQuantity = product.quantity.toIntOrNull() ?: 0
-                            if (selectedQuantity > availableQuantity) {
-                                selectedQuantity += 1
-                            }
-                        },
-                        modifier = Modifier.padding(start = 16.dp),
+                        onClick = { selectedQuantity += 1 },
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50))
                     ) {
-                        Text(
-                            text = "+",
-                            style = MaterialTheme.typography.headlineLarge.copy(
-                                fontWeight = FontWeight.Bold,
-                                color = Color.White
-                            )
-                        )
+                        Text("+")
                     }
                 }
 
-                // Total Price Display
+                // Total Price
                 Text(
-                    text = "Total Price: ₹%.2f".format(totalPrice),
+                    text = "Total Price: ₹%.2f /-".format(totalPrice),
                     style = MaterialTheme.typography.bodyLarge.copy(
                         fontWeight = FontWeight.Bold,
                         color = Color(0xFF4CAF50)
-                    ),
-                    modifier = Modifier.padding(vertical = 10.dp)
+                    )
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))
 
-                // Action Buttons
+                // Buttons
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Button(
                         onClick = { navController.navigate(Screens.ShoppingCart.route) },
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(end = 8.dp)
+                        modifier = Modifier.weight(1f).padding(end = 8.dp)
                     ) {
                         Text("Add to Cart")
                     }
@@ -175,27 +149,31 @@ fun ProductDetailScreen(
                                 "${Screens.OrderSummaryScreen.route}/${product.name}/${product.image}/${product.price}/$selectedQuantity"
                             )
                         },
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(start = 8.dp)
+                        modifier = Modifier.weight(1f).padding(start = 8.dp)
                     ) {
                         Text("Buy Now")
                     }
                 }
             }
         }
-    } ?: run {
-        // Product Not Found Fallback
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .wrapContentSize(Alignment.Center)
-        ) {
-            Text(
-                text = "Product not found",
-                style = MaterialTheme.typography.headlineSmall,
-                color = Color.Red
-            )
-        }
     }
-}
+    //    ?: run {
+//        // Show combo packs instead of "Product not found"
+//        Column(
+//            modifier = Modifier.fillMaxSize(),
+//            horizontalAlignment = Alignment.CenterHorizontally,
+//            verticalArrangement = Arrangement.Center
+//        ) {
+//            Text(
+//                text = "Product not found. Try our Combo Packs!",
+//                style = MaterialTheme.typography.headlineSmall,
+//                color = Color.Red
+//            )
+//
+//            Spacer(modifier = Modifier.height(20.dp))
+//
+//            Button(onClick = { navController.navigate(Screens.Scaffold.route) }) {
+//                Text("Go to Home")
+//            }
+//        }
+    }

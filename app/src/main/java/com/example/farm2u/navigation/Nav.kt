@@ -18,6 +18,7 @@ import androidx.navigation.navigation
 import com.example.farm2u.R
 import com.example.farm2u.view.AboutUs
 import com.example.farm2u.view.Additems
+import com.example.farm2u.view.CategoryProductScreen
 import com.example.farm2u.view.ChatPage
 import com.example.farm2u.view.ChatScreen
 import com.example.farm2u.view.Crop
@@ -186,6 +187,12 @@ fun Nav() {
                 val previousDeals = backStackEntry.arguments?.getString("previousDeals") ?: ""
                 FarmerDetailsScreen(navController = navCtrl, farmerName, description, previousDeals)
             }
+
+            composable("category_screen/{categoryName}") { backStackEntry ->
+                val categoryName = backStackEntry.arguments?.getString("categoryName") ?: "All"
+                CategoryProductScreen(navController=navCtrl, categoryName)
+            }
+
 
 
 
